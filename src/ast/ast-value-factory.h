@@ -92,9 +92,7 @@ class AstRawString final : public ZoneObject {
     return string_;
   }
 
-#ifdef OBJECT_PRINT
   void Print() const;
-#endif  // OBJECT_PRINT
 
  private:
   friend class AstRawStringInternalizationKey;

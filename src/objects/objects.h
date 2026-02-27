@@ -780,17 +780,11 @@ V8_EXPORT_PRIVATE void ShortPrint(Tagged<Object> obj,
 
 V8_EXPORT_PRIVATE void ShortPrint(Tagged<Object> obj, std::ostream& os);
 
-#ifdef OBJECT_PRINT
 // For our gdb macros, we should perhaps change these in the future.
 V8_EXPORT_PRIVATE void Print(Tagged<Object> obj);
 
 // Prints this object with details.
 V8_EXPORT_PRIVATE void Print(Tagged<Object> obj, std::ostream& os);
-
-#else
-inline void Print(Tagged<Object> obj) { ShortPrint(obj); }
-inline void Print(Tagged<Object> obj, std::ostream& os) { ShortPrint(obj, os); }
-#endif
 
 // Heap objects typically have a map pointer in their first word.  However,
 // during GC other data (e.g. mark bits, forwarding addresses) is sometimes

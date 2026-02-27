@@ -1533,7 +1533,6 @@ void BigIntBase::BigIntBaseShortPrint(std::ostream& os) {
   os << digit(0);
 }
 
-#ifdef OBJECT_PRINT
 void BigIntBase::BigIntBasePrint(std::ostream& os) {
   DisallowGarbageCollection no_gc;
   PrintHeader(os, "BigInt");
@@ -1548,7 +1547,6 @@ void BigIntBase::BigIntBasePrint(std::ostream& os) {
   }
   os << std::dec << "\n";
 }
-#endif  // OBJECT_PRINT
 
 void MutableBigInt_AbsoluteAddAndCanonicalize(Address result_addr,
                                               Address x_addr, Address y_addr) {

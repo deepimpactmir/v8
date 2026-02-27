@@ -5107,12 +5107,10 @@ void ImplementationVisitor::GeneratePrintDefinitions(
     const std::string& output_directory) {
   std::stringstream impl;
   std::string file_name = "objects-printer.cc";
+  impl << "#include <iosfwd>\n\n";
+  impl << "#include \"src/objects/all-objects-inl.h\"\n\n";
+
   {
-    IfDefScope object_print(impl, "OBJECT_PRINT");
-
-    impl << "#include <iosfwd>\n\n";
-    impl << "#include \"src/objects/all-objects-inl.h\"\n\n";
-
     NamespaceScope impl_namespaces(impl, {"v8", "internal"});
 
     for (const ClassType* type : TypeOracle::GetClasses()) {

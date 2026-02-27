@@ -378,10 +378,8 @@ class Code : public ExposedTrustedObject {
                                              size_t range_limit);
 #endif  // ENABLE_DISASSEMBLER
 
-#ifdef OBJECT_PRINT
   void CodePrint(std::ostream& os, const char* name = nullptr,
                  Address current_pc = kNullAddress);
-#endif
 
   DECL_VERIFIER(Code)
 

@@ -245,9 +245,7 @@ V8_OBJECT class LoadHandler final : public DataHandler {
   // object" case.
   static bool CanHandleHolderNotLookupStart(Tagged<Object> handler);
 
-#if defined(OBJECT_PRINT)
   static void PrintHandler(Tagged<Object> handler, std::ostream& os);
-#endif  // defined(OBJECT_PRINT)
 } V8_OBJECT_END;
 
 // A set of bit fields representing Smi handlers for stores and a HeapObject
@@ -408,9 +406,7 @@ V8_OBJECT class StoreHandler final : public DataHandler {
   static KeyedAccessStoreMode GetKeyedAccessStoreMode(
       Tagged<MaybeObject> handler);
 
-#if defined(OBJECT_PRINT)
   static void PrintHandler(Tagged<Object> handler, std::ostream& os);
-#endif  // defined(OBJECT_PRINT)
 
  private:
   static inline Handle<Smi> StoreField(Isolate* isolate, Kind kind,

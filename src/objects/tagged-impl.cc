@@ -85,7 +85,6 @@ template EXPORT_TEMPLATE_DEFINE(V8_EXPORT_PRIVATE) void ShortPrint(
 template EXPORT_TEMPLATE_DEFINE(V8_EXPORT_PRIVATE) void ShortPrint(
     TaggedImpl<HeapObjectReferenceType::WEAK, Address> ptr, std::ostream& os);
 
-#ifdef OBJECT_PRINT
 template <HeapObjectReferenceType kRefType, typename StorageType>
 void Print(TaggedImpl<kRefType, StorageType> ptr) {
   StdoutStream os;
@@ -119,7 +118,6 @@ template EXPORT_TEMPLATE_DEFINE(V8_EXPORT_PRIVATE) void Print(
     TaggedImpl<HeapObjectReferenceType::STRONG, Address> ptr, std::ostream& os);
 template EXPORT_TEMPLATE_DEFINE(V8_EXPORT_PRIVATE) void Print(
     TaggedImpl<HeapObjectReferenceType::WEAK, Address> ptr, std::ostream& os);
-#endif  // OBJECT_PRINT
 
 // Explicit instantiation declarations.
 template class TaggedImpl<HeapObjectReferenceType::STRONG, Address>;

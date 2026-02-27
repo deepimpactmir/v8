@@ -500,9 +500,7 @@ V8_OBJECT class String : public Name {
   void PrintUC16(StringStream* accumulator, int start, int end);
 
   // Dispatched behavior.
-#if defined(DEBUG) || defined(OBJECT_PRINT)
   char* ToAsciiArray();
-#endif
   DECL_PRINTER(String)
   DECL_VERIFIER(String)
 

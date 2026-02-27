@@ -265,15 +265,11 @@ std::pair<MaybeHandle<Code>, BailoutReason> MaglevCompiler::GenerateCode(
   }
 
   if (v8_flags.print_maglev_code) {
-#ifdef OBJECT_PRINT
     std::unique_ptr<char[]> debug_name =
         compilation_info->toplevel_function()->shared()->DebugNameCStr();
     CodeTracer::StreamScope tracing_scope(isolate->GetCodeTracer());
     auto& os = tracing_scope.stream();
     code->CodePrint(os, debug_name.get());
-#else
-    Print(*code);
-#endif
   }
 
   return {code, BailoutReason::kNoReason};

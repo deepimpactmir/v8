@@ -161,11 +161,9 @@ void BytecodeArray::Disassemble(Handle<BytecodeArray> handle,
 
   os << "Constant pool (size = " << handle->constant_pool()->ulength().value()
      << ")\n";
-#ifdef OBJECT_PRINT
   if (handle->constant_pool()->ulength().value() > 0) {
     Print(handle->constant_pool(), os);
   }
-#endif
 
   os << "Handler Table (size = " << handle->handler_table()->ulength().value()
      << ")\n";
@@ -180,11 +178,9 @@ void BytecodeArray::Disassemble(Handle<BytecodeArray> handle,
       handle->SourcePositionTable();
   os << "Source Position Table (size = "
      << source_position_table->ulength().value() << ")\n";
-#ifdef OBJECT_PRINT
   if (source_position_table->ulength().value() > 0) {
     os << Brief(source_position_table) << std::endl;
   }
-#endif
 }
 
 void BytecodeArray::CopyBytecodesTo(Tagged<BytecodeArray> to) {

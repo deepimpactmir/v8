@@ -70,8 +70,6 @@ void PrintDouble(std::ostream& os, double val) {
 }
 }  // namespace
 
-#ifdef OBJECT_PRINT
-
 const char* JSIteratorHelperStateToString(JSIteratorHelperState state) {
   switch (state) {
     case JSIteratorHelperState::kSuspendedStart:
@@ -3826,8 +3824,6 @@ void HeapNumber::HeapNumberPrint(std::ostream& os) {
   os << "\n";
 }
 
-#endif  // OBJECT_PRINT
-
 void HeapObject::Print() { Print(*this); }
 
 // static
@@ -4301,11 +4297,7 @@ void Map::MapPrint(std::ostream& os) {
 #else
   constexpr bool is_wasm_map = false;
 #endif  // V8_ENABLE_WEBASSEMBLY
-#ifdef OBJECT_PRINT
   PrintHeader(os, is_meta_map ? "MetaMap" : "Map");
-#else
-  os << (is_meta_map ? "MetaMap=" : "Map=") << reinterpret_cast<void*>(ptr());
-#endif
   os << "\n - type: " << instance_type();
   os << "\n - instance size: ";
   if (instance_size() == kVariableSizeSentinel) {
@@ -4389,9 +4381,7 @@ void Map::MapPrint(std::ostream& os) {
       } else if (raw_transitions().GetHeapObject(&heap_object)) {
         os << Brief(heap_object);
       }
-#ifdef OBJECT_PRINT
       transitions.PrintTransitions(os);
-#endif  // OBJECT_PRINT
     }
   }
   os << "\n - prototype: " << Brief(prototype());
@@ -4410,11 +4400,7 @@ void DescriptorArray::PrintDescriptors(std::ostream& os) {
   for (InternalIndex i : InternalIndex::Range(number_of_descriptors())) {
     Tagged<Name> key = GetKey(i);
     os << "\n  [" << i.as_int() << "]: ";
-#ifdef OBJECT_PRINT
     key->NamePrint(os);
-#else
-    ShortPrint(key, os);
-#endif
     os << " ";
     PrintDescriptorDetails(os, i, PropertyDetails::kPrintFull);
   }
@@ -4445,7 +4431,6 @@ void DescriptorArray::PrintDescriptorDetails(std::ostream& os,
   }
 }
 
-#if defined(DEBUG) || defined(OBJECT_PRINT)
 // This method is only meant to be called from gdb for debugging purposes.
 // Since the string can also be in two-byte encoding, non-Latin1 characters
 // will be ignored in the output.
@@ -4464,11 +4449,7 @@ char* String::ToAsciiArray() {
 void TransitionsAccessor::PrintOneTransition(std::ostream& os, Tagged<Name> key,
                                              Tagged<Map> target) {
   os << "\n     ";
-#ifdef OBJECT_PRINT
   key->NamePrint(os);
-#else
-  ShortPrint(key, os);
-#endif
   os << ": ";
   ReadOnlyRoots roots = GetReadOnlyRoots();
   if (key == roots.nonextensible_symbol()) {
@@ -4596,11 +4577,7 @@ void TransitionsAccessor::PrintTransitionTree(
         } else if (key == roots.detached_symbol()) {
           os << "to detached array buffer view";
         } else {
-#ifdef OBJECT_PRINT
           key->NamePrint(os);
-#else
-          ShortPrint(key, os);
-#endif
           os << " ";
           DCHECK(!IsSpecialTransition(ReadOnlyRoots(isolate_), key));
           os << "to ";
@@ -4641,8 +4618,6 @@ void JSObject::PrintTransitions(std::ostream& os) {
     ta.PrintTransitions(os);
   }
 }
-
-#endif  // defined(DEBUG) || defined(OBJECT_PRINT)
 
 }  // namespace v8::internal
 
@@ -4724,20 +4699,16 @@ V8_DEBUGGING_EXPORT extern std::string _v8_internal_Print_Object_To_String(
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_LoadHandler(
     void* object) {
-#ifdef OBJECT_PRINT
   i::StdoutStream os;
   i::LoadHandler::PrintHandler(GetObjectFromRaw(object), os);
   os << std::endl << std::flush;
-#endif
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_StoreHandler(
     void* object) {
-#ifdef OBJECT_PRINT
   i::StdoutStream os;
   i::StoreHandler::PrintHandler(GetObjectFromRaw(object), os);
   os << std::flush;
-#endif
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_Code(void* object) {
@@ -4764,15 +4735,8 @@ V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_Code(void* object) {
     return;
   }
 
-#if defined(OBJECT_PRINT)
   i::StdoutStream os;
   lookup_result.value()->CodePrint(os, nullptr, address);
-#elif defined(ENABLE_DISASSEMBLER)
-  i::StdoutStream os;
-  lookup_result.value()->Disassemble(nullptr, os, isolate, address);
-#else
-  i::Print(lookup_result.value());
-#endif
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_Dispatch_Handle(
@@ -4873,19 +4837,16 @@ V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_TransitionTree(
   if (!IsMap(o)) {
     printf("Please provide a valid Map\n");
   } else {
-#if defined(DEBUG) || defined(OBJECT_PRINT)
     i::Tagged<i::Map> map = i::UncheckedCast<i::Map>(o);
     i::TransitionsAccessor transitions(
         i::Isolate::Current(),
         start_at_root ? map->FindRootMap(GetPtrComprCageBase(map)) : map);
     transitions.PrintTransitionTree();
-#endif
   }
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_Object_MarkBit(
     void* object) {
-#ifdef OBJECT_PRINT
   const auto mark_bit = v8::internal::MarkBit::From(
       i::Isolate::Current(), reinterpret_cast<i::Address>(object));
   i::StdoutStream os;
@@ -4893,19 +4854,14 @@ V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_Object_MarkBit(
      << (mark_bit.Get() ? "marked" : "unmarked") << std::endl;
   os << "  mark-bit cell: " << mark_bit.CellAddress()
      << ", mask: " << mark_bit.Mask() << std::endl;
-#endif
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_FunctionCallbackInfo(
     void* function_callback_info) {
-#ifdef OBJECT_PRINT
   i::PrintFunctionCallbackInfo(function_callback_info);
-#endif
 }
 
 V8_DEBUGGING_EXPORT extern "C" void _v8_internal_Print_PropertyCallbackInfo(
     void* property_callback_info) {
-#ifdef OBJECT_PRINT
   i::PrintPropertyCallbackInfo(property_callback_info);
-#endif
 }

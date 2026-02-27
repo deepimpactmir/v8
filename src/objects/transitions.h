@@ -206,14 +206,12 @@ class V8_EXPORT_PRIVATE TransitionsAccessor {
   inline void SetSideStepTransition(SideStepTransition::Kind i,
                                     Tagged<Object> target);
 
-#if DEBUG || OBJECT_PRINT
   void PrintTransitions(std::ostream& os);
   static void PrintOneTransition(std::ostream& os, Tagged<Name> key,
                                  Tagged<Map> target);
   void PrintTransitionTree();
   void PrintTransitionTree(std::ostream& os, int level,
                            DisallowGarbageCollection* no_gc);
-#endif
 #if DEBUG
   static void CheckNewTransitionsAreConsistent(Isolate* isolate,
                                                DirectHandle<Map> map,

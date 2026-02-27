@@ -193,8 +193,6 @@ class V8_EXPORT_PRIVATE CppHeapPointerTable
       uint32_t start_of_evacuation_area);
 };
 
-#ifdef OBJECT_PRINT
-
 class CppHeapPointerTableEntryPrinter {
  public:
   static void PrintHeader(const char* space_name);
@@ -207,8 +205,6 @@ class CppHeapPointerTableEntryPrinter {
 template <>
 class TableEntryPrinter<CppHeapPointerTableEntry>
     : public CppHeapPointerTableEntryPrinter {};
-
-#endif  // OBJECT_PRINT
 
 }  // namespace v8::internal
 

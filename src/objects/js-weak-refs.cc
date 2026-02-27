@@ -135,7 +135,6 @@ void JSFinalizationRegistry::RemoveCellFromUnregisterTokenMap(
   weak_cell->set_key_list_next(undefined, SKIP_WRITE_BARRIER);
 }
 
-#ifdef OBJECT_PRINT
 void WeakCell::WeakCellPrint(std::ostream& os) {
   this->PrintHeader(os, "WeakCell");
   os << "\n - finalization_registry: " << Brief(this->finalization_registry());
@@ -148,7 +147,6 @@ void WeakCell::WeakCellPrint(std::ostream& os) {
   os << "\n - key_list_next: " << Brief(this->key_list_next());
   os << '\n';
 }
-#endif  // OBJECT_PRINT
 
 }  // namespace internal
 }  // namespace v8

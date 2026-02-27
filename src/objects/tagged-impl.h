@@ -250,23 +250,12 @@ template <HeapObjectReferenceType kRefType, typename StorageType>
 EXPORT_TEMPLATE_DECLARE(V8_EXPORT_PRIVATE)
 void ShortPrint(TaggedImpl<kRefType, StorageType> ptr, std::ostream& os);
 
-#ifdef OBJECT_PRINT
 template <HeapObjectReferenceType kRefType, typename StorageType>
 EXPORT_TEMPLATE_DECLARE(V8_EXPORT_PRIVATE)
 void Print(TaggedImpl<kRefType, StorageType> ptr);
 template <HeapObjectReferenceType kRefType, typename StorageType>
 EXPORT_TEMPLATE_DECLARE(V8_EXPORT_PRIVATE)
 void Print(TaggedImpl<kRefType, StorageType> ptr, std::ostream& os);
-#else
-template <HeapObjectReferenceType kRefType, typename StorageType>
-void Print(TaggedImpl<kRefType, StorageType> ptr) {
-  ShortPrint(ptr);
-}
-template <HeapObjectReferenceType kRefType, typename StorageType>
-void Print(TaggedImpl<kRefType, StorageType> ptr, std::ostream& os) {
-  ShortPrint(ptr, os);
-}
-#endif
 
 }  // namespace internal
 }  // namespace v8

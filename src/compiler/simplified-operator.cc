@@ -82,7 +82,6 @@ std::ostream& operator<<(std::ostream& os, FieldAccess const& access) {
     os << access.creator_mnemonic << ", ";
   }
   os << access.base_is_tagged << ", " << access.offset << ", ";
-#ifdef OBJECT_PRINT
   Handle<Name> name;
   if (access.name.ToHandle(&name)) {
     name->NamePrint(os);
@@ -91,7 +90,6 @@ std::ostream& operator<<(std::ostream& os, FieldAccess const& access) {
   if (access.map.has_value()) {
     os << Brief(*access.map->object()) << ", ";
   }
-#endif
   os << access.type << ", " << access.machine_type << ", "
      << access.write_barrier_kind << ", " << access.const_field_info;
   if (access.is_store_in_literal) {

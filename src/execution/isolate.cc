@@ -2296,7 +2296,6 @@ void ReportBootstrappingException(DirectHandle<Object> exception,
   } else {
     base::OS::PrintError("Extension or internal compilation error.\n");
   }
-#ifdef OBJECT_PRINT
   // Since comments and empty lines have been stripped from the source of
   // builtins, print the actual source here so that line numbers match.
   if (IsString(location->script()->source())) {
@@ -2320,7 +2319,6 @@ void ReportBootstrappingException(DirectHandle<Object> exception,
       PrintF("\n");
     }
   }
-#endif
 }
 
 }  // anonymous namespace

@@ -237,7 +237,6 @@ void InterpreterCompilationJob::CheckAndPrintBytecodeMismatch(
         generator()->FinalizeBytecode(isolate, script);
 
     std::cerr << "Bytecode mismatch";
-#ifdef OBJECT_PRINT
     std::cerr << " found for function: ";
     MaybeDirectHandle<String> maybe_name =
         parse_info()->literal()->GetName(isolate);
@@ -253,7 +252,6 @@ void InterpreterCompilationJob::CheckAndPrintBytecodeMismatch(
       Cast<String>(script_name)->PrintUC16(std::cerr);
       std::cerr << ":" << parse_info()->literal()->start_position();
     }
-#endif
     std::cerr << "\nOriginal bytecode:\n";
     bytecode->Disassemble(std::cerr);
     std::cerr << "\nNew bytecode:\n";

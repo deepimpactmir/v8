@@ -306,8 +306,6 @@ void ExternalPointerTable::ResolveEvacuationEntryDuringSweeping(
   }
 }
 
-#ifdef OBJECT_PRINT
-
 namespace {
 
 constexpr std::string_view entry_spacer =
@@ -348,8 +346,6 @@ void ExternalPointerTableEntryPrinter::PrintIfInUse(
 void ExternalPointerTableEntryPrinter::PrintFooter() {
   PrintF(stderr, "%s", entry_spacer.data());
 }
-
-#endif  // OBJECT_PRINT
 
 }  // namespace v8::internal
 

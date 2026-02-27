@@ -155,7 +155,6 @@ void PropertyDetails::PrintAsFastTo(std::ostream& os, PrintMode mode) {
   os << ")";
 }
 
-#ifdef OBJECT_PRINT
 void PropertyDetails::Print(bool dictionary_mode) {
   StdoutStream os;
   if (dictionary_mode) {
@@ -165,7 +164,6 @@ void PropertyDetails::Print(bool dictionary_mode) {
   }
   os << "\n" << std::flush;
 }
-#endif
 
 }  // namespace internal
 }  // namespace v8

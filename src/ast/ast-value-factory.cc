@@ -182,9 +182,7 @@ int AstRawString::Compare(const AstRawString* lhs, const AstRawString* rhs) {
   return lhs->byte_length() - rhs->byte_length();
 }
 
-#ifdef OBJECT_PRINT
 void AstRawString::Print() const { printf("%.*s", byte_length(), raw_data()); }
-#endif  // OBJECT_PRINT
 
 template <typename IsolateT>
 Handle<String> AstConsString::Allocate(IsolateT* isolate) const {

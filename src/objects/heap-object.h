@@ -126,9 +126,7 @@ V8_OBJECT class HeapObjectLayout {
       TrustedPointerPublishingScope* opt_publishing_scope);
 #endif  // V8_ENABLE_SANDBOX
 
-#ifdef OBJECT_PRINT
   void PrintHeader(std::ostream& os, const char* id);
-#endif
 
  private:
   friend class HeapObject;
@@ -492,9 +490,7 @@ class HeapObject : public TaggedImpl<HeapObjectReferenceType::STRONG, Address> {
   void Print();
   static void Print(Tagged<Object> obj);
   static void Print(Tagged<Object> obj, std::ostream& os);
-#ifdef OBJECT_PRINT
   void PrintHeader(std::ostream& os, const char* id);
-#endif
   DECL_PRINTER(HeapObject)
   EXPORT_DECL_VERIFIER(HeapObject)
 #ifdef VERIFY_HEAP

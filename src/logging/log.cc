@@ -1587,14 +1587,10 @@ void V8FileLogger::FeedbackVectorEvent(Tagged<FeedbackVector> vector,
   msg << kNext << reinterpret_cast<void*>(code->InstructionStart(cage_base));
   msg << kNext << vector->invocation_count();
 
-#ifdef OBJECT_PRINT
   std::ostringstream buffer;
   vector->FeedbackVectorPrint(buffer);
   std::string contents = buffer.str();
   msg.AppendString(contents.c_str(), contents.length());
-#else
-  msg << "object-printing-disabled";
-#endif
   msg.WriteToLogFile();
 }
 

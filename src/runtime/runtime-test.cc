@@ -1281,18 +1281,12 @@ static void DebugPrintImpl(Tagged<MaybeObject> maybe_object, std::ostream& os) {
     Tagged<Object> object = maybe_object.GetHeapObjectOrSmi();
     bool weak = maybe_object.IsWeak();
 
-#ifdef OBJECT_PRINT
     os << "DebugPrint: ";
     if (weak) os << "[weak] ";
     Print(object, os);
     if (IsHeapObject(object)) {
       Print(Cast<HeapObject>(object)->map(), os);
     }
-#else
-    if (weak) os << "[weak] ";
-    // ShortPrint is available in release mode. Print is not.
-    os << Brief(object);
-#endif
   }
   os << std::endl;
 }
@@ -2333,8 +2327,6 @@ RUNTIME_FUNCTION(Runtime_GetFeedback) {
   // don't make sense.
   return ReadOnlyRoots(isolate).undefined_value();
 #else
-#ifdef OBJECT_PRINT
-
   struct FeedbackValue {
     std::string slot_kind_;
     std::string details_;
@@ -2425,9 +2417,6 @@ RUNTIME_FUNCTION(Runtime_GetFeedback) {
   }
 
   return *isolate->factory()->NewJSArrayWithElements(result);
-#else
-  return ReadOnlyRoots(isolate).undefined_value();
-#endif  // OBJECT_PRINT
 #endif  // not V8_JITLESS
 }
 
@@ -2484,7 +2473,6 @@ void PrintCppHeapPointerTableImpl(Isolate* isolate,
                                   CppHeapPointerHandle max_handle,
                                   EntryFilter entry_filter) {
   PrintF("CppHeapPointerTable:\n");
-#ifdef OBJECT_PRINT
 #ifdef V8_COMPRESS_POINTERS
   const auto& table = Isolate::Current()->cpp_heap_pointer_table();
   table.Print(Isolate::Current()->heap()->cpp_heap_pointer_space(), "Old space",
@@ -2492,9 +2480,6 @@ void PrintCppHeapPointerTableImpl(Isolate* isolate,
 #else   // !V8_COMPRESS_POINTERS
   PrintF("Table not used in this configuration.\n");
 #endif  // !V8_COMPRESS_POINTERS
-#else   // !OBJECT_PRINT
-  PrintF("Object printing not enabled.\n");
-#endif  // !OBJECT_PRINT
 }
 
 template <typename EntryFilter>
@@ -2503,7 +2488,6 @@ void PrintExternalPointerTableImpl(Isolate* isolate,
                                    ExternalPointerHandle max_handle,
                                    EntryFilter entry_filter) {
   PrintF("ExternalPointerTable:\n");
-#ifdef OBJECT_PRINT
 #ifdef V8_COMPRESS_POINTERS
   const auto& table = Isolate::Current()->external_pointer_table();
   table.Print(Isolate::Current()->heap()->read_only_external_pointer_space(),
@@ -2515,9 +2499,6 @@ void PrintExternalPointerTableImpl(Isolate* isolate,
 #else   // !V8_COMPRESS_POINTERS
   PrintF("Table not used in this configuration.\n");
 #endif  // !V8_COMPRESS_POINTERS
-#else   // !OBJECT_PRINT
-  PrintF("Object printing not enabled.\n");
-#endif  // !OBJECT_PRINT
 }
 
 }  // namespace

@@ -634,10 +634,8 @@ class V8_EXPORT_PRIVATE FeedbackVectorSpec {
     return AddSlot(FeedbackSlotKind::kStringAddAndInternalize);
   }
 
-#ifdef OBJECT_PRINT
   // For gdb debugging.
   void Print();
-#endif  // OBJECT_PRINT
 
   DECL_PRINTER(FeedbackVectorSpec)
 

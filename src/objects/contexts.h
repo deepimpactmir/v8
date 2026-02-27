@@ -732,9 +732,7 @@ class Context : public TorqueGeneratedContext<Context, HeapObject> {
   friend class JavaScriptFrame;
   friend class V8HeapExplorer;
 
-#ifdef OBJECT_PRINT
   void PrintContextWithHeader(std::ostream& os, const char* type);
-#endif
 
  private:
 #ifdef DEBUG

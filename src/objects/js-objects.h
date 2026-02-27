@@ -883,13 +883,9 @@ class JSObject : public TorqueGeneratedJSObject<JSObject, JSReceiver> {
   void JSObjectShortPrint(StringStream* accumulator);
   DECL_PRINTER(JSObject)
   DECL_VERIFIER(JSObject)
-#ifdef OBJECT_PRINT
   bool PrintProperties(std::ostream& os);
   void PrintElements(std::ostream& os);
-#endif
-#if defined(DEBUG) || defined(OBJECT_PRINT)
   void PrintTransitions(std::ostream& os);
-#endif
 
   static void PrintElementsTransition(
       FILE* file, DirectHandle<JSObject> object, ElementsKind from_kind,

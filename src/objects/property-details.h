@@ -461,10 +461,8 @@ class PropertyDetails {
       V8_DICT_PROPERTY_CONST_TRACKING_BOOL ? PropertyConstness::kConst
                                            : PropertyConstness::kMutable;
 
-#ifdef OBJECT_PRINT
   // For our gdb macros, we should perhaps change these in the future.
   void Print(bool dictionary_mode);
-#endif
 
   enum PrintMode {
     kPrintAttributes = 1 << 0,

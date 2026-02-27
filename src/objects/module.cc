@@ -35,9 +35,6 @@ void PrintModuleName(Tagged<Module> module, std::ostream& os) {
   } else {
     Print(Cast<SyntheticModule>(module)->name(), os);
   }
-#ifndef OBJECT_PRINT
-  os << "\n";
-#endif  // OBJECT_PRINT
 }
 
 void PrintStatusTransition(Tagged<Module> module, Module::Status old_status) {

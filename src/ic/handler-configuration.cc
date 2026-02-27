@@ -505,7 +505,6 @@ bool LoadHandler::CanHandleHolderNotLookupStart(Tagged<Object> handler) {
   return IsLoadHandler(handler);
 }
 
-#if defined(OBJECT_PRINT)
 namespace {
 void PrintSmiLoadHandler(int raw_handler, std::ostream& os) {
   LoadHandler::Kind kind = LoadHandler::KindBits::decode(raw_handler);
@@ -753,8 +752,6 @@ void StoreHandler::PrintHandler(Tagged<Object> handler, std::ostream& os) {
 std::ostream& operator<<(std::ostream& os, WasmValueType type) {
   return os << WasmValueType2String(type);
 }
-
-#endif  // defined(OBJECT_PRINT)
 
 }  // namespace internal
 }  // namespace v8

@@ -436,10 +436,8 @@ class Serializer : public SerializerDeserializer {
 
   bool serializer_tracks_serialization_statistics_ = true;
   size_t allocation_size_[kNumberOfSnapshotSpaces] = {0};
-#ifdef OBJECT_PRINT
 // Verbose serialization_statistics output is only enabled conditionally.
 #define VERBOSE_SERIALIZATION_STATISTICS
-#endif
 #ifdef VERBOSE_SERIALIZATION_STATISTICS
   static constexpr int kInstanceTypes = LAST_TYPE + 1;
   std::unique_ptr<int[]> instance_type_count_[kNumberOfSnapshotSpaces];

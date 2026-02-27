@@ -433,8 +433,6 @@ void ExternalEntityTable<Entry, size>::IterateEntriesIn(Space* space,
   }
 }
 
-#ifdef OBJECT_PRINT
-
 template <typename Entry, size_t size>
 template <typename EntryCallback>
 void ExternalEntityTable<Entry, size>::Print(
@@ -451,8 +449,6 @@ void ExternalEntityTable<Entry, size>::Print(
   }
   TableEntryPrinter<Entry>::PrintFooter();
 }
-
-#endif
 
 }  // namespace internal
 }  // namespace v8

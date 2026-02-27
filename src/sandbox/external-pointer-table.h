@@ -405,8 +405,6 @@ class V8_EXPORT_PRIVATE ExternalPointerTable
       uint32_t start_of_evacuation_area);
 };
 
-#ifdef OBJECT_PRINT
-
 class ExternalPointerTableEntryPrinter {
  public:
   static void PrintHeader(const char* space_name);
@@ -419,8 +417,6 @@ class ExternalPointerTableEntryPrinter {
 template <>
 class TableEntryPrinter<ExternalPointerTableEntry>
     : public ExternalPointerTableEntryPrinter {};
-
-#endif  // OBJECT_PRINT
 
 }  // namespace internal
 }  // namespace v8

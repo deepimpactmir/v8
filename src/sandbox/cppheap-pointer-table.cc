@@ -171,8 +171,6 @@ void CppHeapPointerTable::ResolveEvacuationEntryDuringSweeping(
   *handle_location = new_handle;
 }
 
-#ifdef OBJECT_PRINT
-
 namespace {
 
 constexpr std::string_view entry_spacer =
@@ -213,8 +211,6 @@ void CppHeapPointerTableEntryPrinter::PrintIfInUse(
 void CppHeapPointerTableEntryPrinter::PrintFooter() {
   PrintF(stderr, "%s", entry_spacer.data());
 }
-
-#endif  // OBJECT_PRINT
 
 }  // namespace internal
 }  // namespace v8

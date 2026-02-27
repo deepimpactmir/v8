@@ -820,9 +820,7 @@ class SharedFunctionInfo
 #ifdef VERIFY_HEAP
   void SharedFunctionInfoVerify(LocalIsolate* isolate);
 #endif
-#ifdef OBJECT_PRINT
   void PrintSourceCode(std::ostream& os);
-#endif
 
   // Iterate over all shared function infos in a given script.
   class ScriptIterator {
